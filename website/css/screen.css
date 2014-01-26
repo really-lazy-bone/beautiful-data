@@ -2,8 +2,10 @@
     body {
 		background: white; 
 		font-size: 12pt; 
-		margin: 50px; 
-		width: 700px;
+        margin: 0;
+    }
+
+    header {
     }
     
     #sidebar { 
