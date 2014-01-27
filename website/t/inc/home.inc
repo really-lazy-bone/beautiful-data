@@ -2,9 +2,11 @@
         <div class="page-header">
           <h2>About beautiful-data</h2>
         </div>
+
         <p class="lead" style="text-align:justify;">beautiful-data (BD) is an Open Source project that focuses on a large-scale data processing and visualization.  Its ultimate goal is to provide researchers, business analysts and students a software framework for working with "big data" in relatively short order.</p>
         
         <h3>The Stages of beautiful-data</h3>
+
         <p>We frame the BD's big data management process as a four-stage workflow, where each of the stages is responsible for a specific high-level task.</p>
         
         <ol>
@@ -15,4 +17,5 @@
         </ol>
 
 		<h3>Software Framework</h3>		
+
         <p>BD is a continuously improving software framework that includes both the complete suite of data management applications and the underlying API layer.  For this reason, the BD design is <em>extremely</em> flexible and as it provides a robust pathway to support many extension points.</p>
