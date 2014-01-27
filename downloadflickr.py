@@ -22,7 +22,8 @@ urllist = [] #store a list of what was downloaded
 
 # downloading images
 count = 1
-# we probably should adjust this so that we only store information on photos that have geolocations
+# we probably want to implement saving the number of views too
+# and I'm not convinced a list with a counter is the best data structure, but that's what I have for now
 for photo in f[1:50]:
     tags = []
     if photo.tags is not None:
@@ -31,6 +32,7 @@ for photo in f[1:50]:
     if photo.getLocation() is not None:
         loc.append(photo.getLocation())
     if tags != [] and loc != []:
+        # this if clause makes sure the photo info we're collecting is only for photos with geolocations and tags
         photos.append([count, tags, loc])
         print photos
     count += 1
