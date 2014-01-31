@@ -15,11 +15,22 @@
     <!-- Custom styles for this template -->
     <link href="css/sticky-footer-navbar.css" rel="stylesheet">
 
+    <!-- mathjax -->
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+	</script>
+    <script type="text/javascript"
+  src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+	    
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    
   </head>
   <body>
   
@@ -65,7 +76,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="text-muted">beautiful-data is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0 License</a></p>
+        <p class="text-muted"><span style="color:#FF0000; font-weight:bold">beautiful-data</span> is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0 License</a></p>
       </div>
     </div>
 
