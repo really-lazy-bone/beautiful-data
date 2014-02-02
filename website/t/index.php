@@ -64,9 +64,9 @@ MathJax.Hub.Config({
       <div class="container">
       <?php
         if(isset($_GET['pg'])) {
-      	  $page = $_GET['pg'] . ".inc";
+      	  $page = $_GET['pg'] . ".php";
       	} else {
-      	  $page = "home.inc";
+      	  $page = "home.php";
       	}
         include("inc/$page"); 
       ?>
