@@ -2,6 +2,9 @@ import flickrapi
 from unidecode import unidecode
 import json
 import csv
+import time
+import datetime
+import sys
 
 api_key = "bb5df1eaa8b3fed046b9d3185b67f375"
 api_secret = "82f4f3eb073d7bb3"
@@ -59,10 +62,10 @@ class Photo(object):
         tags = []
         tags_machine = []
         for t in info.get('tags').get('tag'):
-            if t.get('machine_tag') == 0:
-                tags.append(t.get('raw'))
-            else:
+            if t.get('machine_tag') == 1:
                 tags_machine.append(t.get('raw'))
+            else:
+                tags.append(t.get('raw'))
 
         return Photo(
                 id=info.get('id'),
@@ -114,26 +117,49 @@ class FlickrCrawl(object):
 
     def run(self, min_date, max_date):
 
-        search_results = self.flickr.photos_search(min_taken_date=min_date, max_taken_date=max_date,
-                                                                    has_geo=1, media='photos', bbox='-124.7625, 24.5210, -66.9326, 49.3845').find('photos')
+        page = 1
+        has_more_pages = True
 
-        photo_set = []
-        for item in search_results.findall('photo'):
-            photo_id = item.get('id')
-            print photo_id
-            if photo_id is not None:
-                photo = self.flickr.photos_getInfo(photo_id=photo_id, format='json')
-                if 'jsonFlickrApi(' in photo:
-                    photo = json.loads(photo[14:-1])
-                p = Photo.fromSearchResult(photo['photo'])
-                if p.tags == []:
-                    continue
-            photo = {'photo_id' : p.id, 'tags' : p.tags, 'geolocation' : p.geolocation, 'date_taken' : p.date_taken, 'date_posted' : p.date_posted,
-                            'views' : p.views, 'locale' : p.locale, 'county' : p.county, 'region' : p.region, 'url' : p.url}
-            photo_set.append(photo)
-            print photo
-            self.writeOut(photo)
-        return photo_set
+        while has_more_pages:
+            search_results = None
+
+            try:
+                search_results = self.flickr.photos_search(min_taken_date=min_date, max_taken_date=max_date, 
+                    has_geo=1, media='photos', bbox='-124.7625, 24.5210, -66.9326, 49.3845', per_page='250', page=page).find('photos')
+            except Exception as e:
+                print e
+                pass
+
+            if search_results is not None:
+                print "Number of pages: ", search_results.get('pages')
+                print "Current page: ", page
+                if page >= int(search_results.get('pages')):
+                    has_more_pages = False
+                else:
+                    page += 1
+
+                photo_set = []
+
+                for item in search_results.findall('photo'):
+                    photo_id = item.get('id')
+                    print photo_id
+                    if photo_id is not None:
+                        try:
+                            photo = self.flickr.photos_getInfo(photo_id=photo_id, format='json')
+                        except Exception as e:
+                            print e
+                            pass
+                        if 'jsonFlickrApi(' in photo:
+                            photo = json.loads(photo[14:-1])
+                        if 'photo' in photo:
+                            p = Photo.fromSearchResult(photo['photo'])
+                            if p.tags == []:
+                                continue
+                    photo = {'photo_id' : p.id, 'tags' : p.tags, 'geolocation' : p.geolocation, 'date_taken' : p.date_taken, 'date_posted' : p.date_posted,
+                                    'views' : p.views, 'locale' : p.locale, 'county' : p.county, 'region' : p.region, 'url' : p.url}
+                    photo_set.append(photo)
+                    print photo
+                    self.writeOut(photo)
 
     def writeOut(self, photo):
         with open('flickrdump.csv', 'ab') as f:
@@ -142,8 +168,12 @@ class FlickrCrawl(object):
 
 def main():
 
-    min_taken_date='2013-01-01'
-    max_taken_date='2013-01-02'
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    print st
+
+    min_taken_date='2013-11-01'
+    max_taken_date='2013-12-01'
 
     crawl = FlickrCrawl()
 
@@ -153,7 +183,11 @@ def main():
         dict_writer = csv.DictWriter(f, keys, dialect='excel')
         dict_writer.writer.writerow(keys)
 
-    photo_set = crawl.run(min_taken_date, max_taken_date)
+    crawl.run(min_taken_date, max_taken_date)
+
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    print st
 
 if __name__ == '__main__':
     main()
