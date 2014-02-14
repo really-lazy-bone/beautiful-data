@@ -5,64 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Beautiful-data by really-lazy-bone</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="lib/semantic-ui/css/semantic.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Beautiful-data</h1>
-        <p>Visualizer Team [Flickr]</p>
+    <h2>Barebone visualization using google speadsheet as the backend</h2>
 
-        <p class="view"><a href="https://github.com/really-lazy-bone/beautiful-data">View the Project on GitHub <small>really-lazy-bone/beautiful-data</small></a></p>
+    <div id="chartcontainer"></div>
 
+    <!-- Read the javascript at the end of the body tag to increase the page load speed -->
+    <script type="text/javascript" src="lib/jquery/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.csv-0.71.js"></script>
+    <script type="text/javascript" src="lib/highchart/js/highcharts.js"></script>
 
-        <ul>
-          <li><a href="https://github.com/really-lazy-bone/beautiful-data/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/really-lazy-bone/beautiful-data/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/really-lazy-bone/beautiful-data">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a name="beautiful-data" class="anchor" href="#beautiful-data"><span class="octicon octicon-link"></span></a>beautiful-data</h1>
+    <script type="text/javascript">
 
-<p>This is an Open Source project that focuses on a large-scale data processing and visualization.  Its ultimate goal is to provide researchers, business analysts and students a framework for doing "big data" in relatively short order.</p>
+      $.get('csv/january_flickrdump.csv', function(data) {
+        var csvData = $.csv.toObjects(data);
 
-<p>The code organization structure is loosely based on (inspired by) Jean-Paul Calderone's python project directory.  Undoubtedly at somepoint we will have to integrate java and other languages/technologies.  At which point, a reasonable refactoring effort is required.</p>
+        reOrganizeDataByLocale(csvData);
+      }, 'text');
 
-<p>The project's official website is at <a href="http://bd.pcwerk.com/">http://bd.pcwerk.com/</a></p>
+      var reOrganizeDataByLocale = function(data) {
+        // Organize the data by the locale
+        var localeCategory = [];
+        var localeCount = [];
 
-<h2>
-<a name="directory-structure" class="anchor" href="#directory-structure"><span class="octicon octicon-link"></span></a>directory structure</h2>
+        for (var i = 0; i < data.length; i++) {
+          // if the locale caregory does not contain the current item
+          if (localeCategory.indexOf(data[i].locale) == -1) {
+            localeCategory.push(data[i].locale);
+            localeCount.push(parseInt(1));
+          } else {
+            localeCount[localeCategory.indexOf(data[i].locale)] = parseInt(localeCount[localeCategory.indexOf(data[i].locale)]) + 1;
+          };
+        };
 
-<pre><code>lazy-bones-beautiful-data/
-   LICENSE
-   README.md
-   bd_analyze/
-   bd_collect/
-   bd_store/
-   bd_visualize/
-   bin/
-   website/
-</code></pre>
+        console.log(localeCategory);
+        console.log(localeCount);
+      };
 
-<p>The bd_ directories contain source code for the four modules of project; the website directory contains the static web-related documents (e.g., .html, .css, and .js files); the bin directory contains wrapper scripts that can be used to execute the project.  In theory, code within the bd_ directories should never be directly executed.</p>
-
-<p>References:</p>
-
-<p>[1] Calderone, Jean-Paul.  "Filesystem structure of a Python project" <a href="http://as.ynchrono.us/2007/12/filesystem-structure-of-python-project_21.html">http://as.ynchrono.us/2007/12/filesystem-structure-of-python-project_21.html</a></p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/really-lazy-bone">really-lazy-bone</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+    </script>
   </body>
 </html>
