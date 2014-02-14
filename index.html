@@ -45,12 +45,16 @@
         var localeCount = [];
 
         for (var i = 0; i < data.length; i++) {
+          var locationArray = data[i].locale.split(",");
+          
+          var location = locationArray[0].substring(3, locationArray[0].length - 1)
+
           // if the locale caregory does not contain the current item
-          if (localeCategory.indexOf(data[i].locale) == -1) {
-            localeCategory.push(data[i].locale);
+          if (localeCategory.indexOf(location) == -1) {
+            localeCategory.push(location);
             localeCount.push(parseInt(1));
           } else {
-            localeCount[localeCategory.indexOf(data[i].locale)] = parseInt(localeCount[localeCategory.indexOf(data[i].locale)]) + 1;
+            localeCount[localeCategory.indexOf(location)] = parseInt(localeCount[localeCategory.indexOf(location)]) + 1;
           };
         };
 
