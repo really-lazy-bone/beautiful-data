@@ -1,9 +1,9 @@
 beautiful-data
 ==============
 
-This is an Open Source project that focuses on a large-scale data processing and visualization.  Its ultimate goal is to provide researchers, business analysts and students a framework for doing "big data" in relatively short order.
+beautiful-data (BD) is an Open Source project that focuses on a large-scale data processing and visualization.  Its ultimate goal is to provide researchers, business analysts and students a software framework for working with "big data" in relatively short order.
 
-The code organization structure is loosely based on (inspired by) Jean-Paul Calderone's python project directory.  Undoubtedly at somepoint we will have to integrate java and other languages/technologies.  At which point, a reasonable refactoring effort is required.
+The code organization structure is loosely based on (inspired by) Jean-Paul Calderone's python project directory.  Undoubtedly at some point we will have to integrate java and other languages/technologies.  At which point, a reasonable refactoring effort is required.
 
 The project's official website is at http://bd.pcwerk.com/
 
