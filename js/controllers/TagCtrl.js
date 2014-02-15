@@ -9,23 +9,31 @@ angular.module('lazyApp').controller('TagCtrl',
             var tagCategory = [];
             var tagCount = [];
 
+            $scope.idTracks = [];
+
             // Parsing and counting the tag
             for (var i = 0; i < data.length; i++) {
-              var tagsArray = data[i].tags.split(",");
-              
-              // count each word individually
-              for (var j = 0; j < tagsArray.length; j ++) {
-                var tag = Util.convertFlickrText(tagsArray[j]);
 
-                var index = tagCategory.indexOf(tag);
+              if ($scope.idTracks.indexOf(data[i].photo_id) > -1) {
+                 continue;
+              } else {
+                  $scope.idTracks.push(data[i].photo_id);
+                  var tagsArray = data[i].tags.split(",");
+                  
+                  // count each word individually
+                  for (var j = 0; j < tagsArray.length; j ++) {
+                    var tag = Util.convertFlickrText(tagsArray[j]);
 
-                // if the locale caregory does not contain the current item
-                if (index == -1) {
-                    tagCategory.push(tag);
-                    tagCount.push(parseInt(1));
-                } else {
-                    tagCount[index] ++;
-                };
+                    var index = tagCategory.indexOf(tag);
+
+                    // if the locale caregory does not contain the current item
+                    if (index == -1) {
+                        tagCategory.push(tag);
+                        tagCount.push(parseInt(1));
+                    } else {
+                        tagCount[index] ++;
+                    };
+                  };
               };
               
             };

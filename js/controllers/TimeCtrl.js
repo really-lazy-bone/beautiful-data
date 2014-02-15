@@ -8,28 +8,37 @@ angular.module('lazyApp').controller('TimeCtrl',
             // Organize the data by the locale
             var timeData = [];
 
+            $scope.idTracks = [];
+
             // Parsing and counting the time
             for (var i = 0; i < data.length; i++) {
-              var postedDate = new Date(data[i].date_taken);
 
-              var index = -1;
-
-              for (var j = 0; j < timeData.length; j ++) {
-                if ( ( timeData[j][0].getTime() - postedDate.getTime() ) * 
-                     ( timeData[j][0].getTime() - postedDate.getTime() ) < 1000*60*60*24*1000*60*60*24) {
-                  index = j;
-                  break;
-                }
-              };
-
-              // if the locale caregory does not contain the current item
-              if (index == -1) {
-                  timeData.push([postedDate, 1]);
+              if ($scope.idTracks.indexOf(data[i].photo_id) > -1) {
+                 continue;
               } else {
-                  var temp = timeData[index];
-                  temp[1] ++;
-                  timeData[index] = temp;
-              };
+                $scope.idTracks.push(data[i].photo_id);
+
+                var postedDate = new Date(data[i].date_taken);
+
+                var index = -1;
+
+                for (var j = 0; j < timeData.length; j ++) {
+                  if ( ( timeData[j][0].getTime() - postedDate.getTime() ) * 
+                       ( timeData[j][0].getTime() - postedDate.getTime() ) < 1000*60*60*24*1000*60*60*24) {
+                    index = j;
+                    break;
+                  }
+                };
+
+                // if the locale caregory does not contain the current item
+                if (index == -1) {
+                    timeData.push([postedDate, 1]);
+                } else {
+                    var temp = timeData[index];
+                    temp[1] ++;
+                    timeData[index] = temp;
+                };
+              }
             };
 
             // sort date
