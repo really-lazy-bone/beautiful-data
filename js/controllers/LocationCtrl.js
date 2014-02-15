@@ -12,7 +12,7 @@ angular.module('lazyApp').controller('LocationCtrl',
             for (var i = 0; i < data.length; i++) {
               var locationArray = data[i].locale.split(",");
               
-              var location = locationArray[0].substring(3, locationArray[0].length - 1)
+              var location = locationArray[0].substring(3, locationArray[0].length - 1);
 
               // if the locale caregory does not contain the current item
               if (localeCategory.indexOf(location) == -1) {
@@ -30,8 +30,14 @@ angular.module('lazyApp').controller('LocationCtrl',
               },
               xAxis: {
                 min: 0,
-                max: 13,
+                max: 10,
                 categories: localeCategory
+              },
+              title: {
+                  text: 'Flickr Location Statistic'
+              },
+              subtitle: {
+                  text: 'Basic count'
               },
               scrollbar: {
                 enabled: true
@@ -47,8 +53,6 @@ angular.module('lazyApp').controller('LocationCtrl',
         $scope.init = function() {
             $.get('csv/january_flickrdump.csv', function(data) {
                 $scope.csvData = $.csv.toObjects(data);
-
-                console.log($scope.csvData);
 
                 $scope.reOrganizeDataByLocale($scope.csvData);
             }, 'text');
