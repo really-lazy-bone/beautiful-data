@@ -30,7 +30,7 @@ angular.module('lazyApp').controller('LocationCtrl',
               },
               xAxis: {
                 min: 0,
-                max: 20,
+                max: 13,
                 categories: localeCategory
               },
               scrollbar: {
