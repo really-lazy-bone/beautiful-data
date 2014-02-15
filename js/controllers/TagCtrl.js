@@ -35,7 +35,6 @@ angular.module('lazyApp').controller('TagCtrl',
                     };
                   };
               };
-              
             };
 
             // remove the tags that shows up less than 10 times
@@ -47,6 +46,26 @@ angular.module('lazyApp').controller('TagCtrl',
                 } else {
                     i ++;
                 };
+            };
+
+            // sort date by selection sort
+            for (var i = 0; i < tagCategory.length; i ++) {
+              var min = i;
+
+              for (var j = i + 1; j < tagCategory.length; j ++) {
+                if (tagCategory[j] < tagCategory[min]) {
+                  min = j;
+                }
+              }
+
+              if (min != i) {
+                var temp = tagCategory[i];
+                tagCategory[i] = tagCategory[min];
+                tagCategory[min] = temp;
+                var tempCount = tagCount[i];
+                tagCount[i] = tagCount[min];
+                tagCategory[min] = tempCount;
+              }
             };
 
             var chart = new Highcharts.Chart({
