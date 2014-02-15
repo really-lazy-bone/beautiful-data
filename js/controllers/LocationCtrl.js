@@ -11,15 +11,17 @@ angular.module('lazyApp').controller('LocationCtrl',
 
             for (var i = 0; i < data.length; i++) {
               var locationArray = data[i].locale.split(",");
-              
-              var location = locationArray[0].substring(3, locationArray[0].length - 1);
+            
+              var location = locationArray[0].replace(/[\[\]\'&]+/g, '').trim();
+              location = location.substring(1, location.length).toLowerCase();
 
               // if the locale caregory does not contain the current item
-              if (localeCategory.indexOf(location) == -1) {
+              var index = localeCategory.indexOf(location);
+              if (index == -1) {
                 localeCategory.push(location);
                 localeCount.push(parseInt(1));
               } else {
-                localeCount[localeCategory.indexOf(location)] ++;
+                localeCount[index] ++;
               };
             };
 

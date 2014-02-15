@@ -15,7 +15,8 @@ angular.module('lazyApp').controller('TagCtrl',
               
               // count each word individually
               for (var j = 0; j < tagsArray.length; j ++) {
-                var tag = tagsArray[j].substring(3, tagsArray[j].length - 1);
+                var tag = tagsArray[j].replace(/[\[\]\'&]+/g, '').trim();
+                tag = tag.substring(1, tag.length).toLowerCase();
 
                 var index = tagCategory.indexOf(tag);
 
