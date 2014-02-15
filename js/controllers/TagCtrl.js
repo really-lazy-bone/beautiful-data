@@ -1,6 +1,6 @@
 angular.module('lazyApp').controller('TagCtrl',
-    ['$scope', '$location', 'Resources',
-    function($scope, $location, Resources) {
+    ['$scope', '$location', 'Resources', 'Util',
+    function($scope, $location, Resources, Util) {
 
         $scope.csvData = '';
 
@@ -15,8 +15,7 @@ angular.module('lazyApp').controller('TagCtrl',
               
               // count each word individually
               for (var j = 0; j < tagsArray.length; j ++) {
-                var tag = tagsArray[j].replace(/[\[\]\'&]+/g, '').trim();
-                tag = tag.substring(1, tag.length).toLowerCase();
+                var tag = Util.convertFlickrText(tagsArray[j]);
 
                 var index = tagCategory.indexOf(tag);
 

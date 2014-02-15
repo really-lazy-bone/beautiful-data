@@ -1,6 +1,6 @@
 angular.module('lazyApp').controller('LocationCtrl',
-    ['$scope', '$location', 'Resources',
-    function($scope, $location, Resources) {
+    ['$scope', '$location', 'Resources', 'Util',
+    function($scope, $location, Resources, Util) {
 
         $scope.csvData = '';
 
@@ -12,8 +12,7 @@ angular.module('lazyApp').controller('LocationCtrl',
             for (var i = 0; i < data.length; i++) {
               var locationArray = data[i].locale.split(",");
             
-              var location = locationArray[0].replace(/[\[\]\'&]+/g, '').trim();
-              location = location.substring(1, location.length).toLowerCase();
+              var location = Util.convertFlickrText(locationArray[0]);
 
               // if the locale caregory does not contain the current item
               var index = localeCategory.indexOf(location);

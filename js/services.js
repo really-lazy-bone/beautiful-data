@@ -11,4 +11,15 @@ angular.module('lazyApp.services', []).
     return $resource('/:data/:resourceName', 
         {}, {}
     );
+  }).
+  factory('Util', function(){
+
+      return {
+          convertFlickrText: function(flickrText) {
+              var text = flickrText.replace(/[\[\]\'&]+/g, '').trim();
+              text = text.substring(1, text.length).toLowerCase();
+
+              return text;
+          }
+      };
   });
