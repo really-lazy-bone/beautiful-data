@@ -15,5 +15,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/tag', {templateUrl: 'partials/tag.html', controller: 'TagCtrl'});
   $routeProvider.when('/time', {templateUrl: 'partials/time.html', controller: 'TimeCtrl'});
   $routeProvider.when('/map', {templateUrl: 'partials/map.html', controller: 'MapCtrl'});
+  $routeProvider.when('/region', {templateUrl: 'partials/region.html', controller: 'RegionCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
 }]);
