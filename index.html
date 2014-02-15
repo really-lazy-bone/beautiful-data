@@ -32,6 +32,9 @@
       <a class="item" href="#/time" active-link="active">
         <i class="time icon"></i> Time Statistic
       </a>
+      <a class="item" href="#/map" active-link="active">
+        <i class="map icon"></i> Map Statistic
+      </a>
     </header>
 
     <div class="ui grid page" ng-view></div>
@@ -40,11 +43,15 @@
     <script type="text/javascript" src="lib/jquery/jquery-2.1.0.js"></script>
     <script type="text/javascript" src="lib/jquery/jquery.csv-0.71.js"></script>
     <script type="text/javascript" src="lib/highstock/js/highstock.js"></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi2JhMTiQuQdTv55x8o35i-A19kFzyep4&sensor=false"></script>
+    <script type="text/javascript" src="lib/underscore/underscore.js"></script>
 
     <!-- Feel the power of Angular! -->
     <script type="text/javascript" src="lib/angular/angular.js"></script>
     <script type="text/javascript" src="lib/angular/angular-route.js"></script>
     <script type="text/javascript" src="lib/angular/angular-resource.js"></script>
+    <script type="text/javascript" src="lib/angular/angular-google-maps.min.js"></script>
 
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
@@ -53,6 +60,7 @@
     <script type="text/javascript" src="js/controllers/LocationCtrl.js"></script>
     <script type="text/javascript" src="js/controllers/TagCtrl.js"></script>
     <script type="text/javascript" src="js/controllers/TimeCtrl.js"></script>
+    <script type="text/javascript" src="js/controllers/MapCtrl.js"></script>
 
   </body>
 </html>

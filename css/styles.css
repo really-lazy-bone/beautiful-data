@@ -3,3 +3,5 @@
     height: 450px;
     overflow: auto;
 }
+
+.angular-google-map-container { height: 500px; }
