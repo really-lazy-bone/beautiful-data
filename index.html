@@ -16,16 +16,18 @@
     <![endif]-->
   </head>
   <body>
-    <header class="ui blue menu">
+    <header class="ui grid page text blue menu">
       <a class="item" href="#/home" active-link="active">
         <i class="home icon"></i> Home
       </a>
       <a class="item" href="#/location" active-link="active">
         <i class="mail icon"></i> Location Statistic
       </a>
-    </header>  
+    </header>
 
-    <div class="ui page" ng-view></div>
+    <div class="ui fitted divider"></div>
+
+    <div class="ui grid page" ng-view></div>
 
     <!-- Read the javascript at the end of the body tag to increase the page load speed -->
     <script type="text/javascript" src="lib/jquery/jquery-2.1.0.js"></script>
