@@ -21,8 +21,15 @@ angular.module('lazyApp').controller('MapCtrl',
             
               var latitude = parseFloat( locationArray[0].substring(1, locationArray[0].length) );
               var longitude = parseFloat( locationArray[1].substring(0, locationArray[1].length-1) );
+              var imageLink = data[i].url.indexOf("jpg") > -1 ? data[i].url : "";
 
-              var location = { 'title': 'test', 'latitude': latitude, 'longitude': longitude };
+              var location = {
+                'title': 'test',
+                'latitude': latitude, 
+                'longitude': longitude,
+                'url': "" + data[i].url,
+                'image': imageLink
+            };
 
               $scope.locations.push(location);
             };
