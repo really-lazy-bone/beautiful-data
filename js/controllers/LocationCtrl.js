@@ -32,6 +32,26 @@ angular.module('lazyApp').controller('LocationCtrl',
               }
             };
 
+            // sort date by selection sort
+            for (var i = 0; i < localeCategory.length; i ++) {
+              var min = i;
+
+              for (var j = i + 1; j < localeCategory.length; j ++) {
+                if (localeCategory[j] < localeCategory[min]) {
+                  min = j;
+                }
+              }
+
+              if (min != i) {
+                var temp = localeCategory[i];
+                localeCategory[i] = localeCategory[min];
+                localeCategory[min] = temp;
+                var localeCount = tagCount[i];
+                tagCount[i] = tagCount[min];
+                localeCategory[min] = localeCount;
+              }
+            };
+
             var chart = new Highcharts.Chart({
               chart: {
                 renderTo: 'container',
