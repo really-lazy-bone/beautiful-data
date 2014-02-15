@@ -6,4 +6,9 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('lazyApp.services', []).
-  value('version', '0.1');
+  value('version', '0.1').
+  factory('Resources', function($resource) {
+    return $resource('/:data/:resourceName', 
+        {}, {}
+    );
+  });

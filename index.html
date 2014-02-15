@@ -16,7 +16,16 @@
     <![endif]-->
   </head>
   <body>
-    <div ng-view></div>
+    <header class="ui blue menu">
+      <a class="item" href="#/home" active-link="active">
+        <i class="home icon"></i> Home
+      </a>
+      <a class="item" href="#/location" active-link="active">
+        <i class="mail icon"></i> Location Statistic
+      </a>
+    </header>  
+
+    <div class="ui page" ng-view></div>
 
     <!-- Read the javascript at the end of the body tag to increase the page load speed -->
     <script type="text/javascript" src="lib/jquery/jquery-2.1.0.js"></script>
@@ -26,58 +35,13 @@
     <!-- Feel the power of Angular! -->
     <script type="text/javascript" src="lib/angular/angular.js"></script>
     <script type="text/javascript" src="lib/angular/angular-route.js"></script>
+    <script type="text/javascript" src="lib/angular/angular-resource.js"></script>
 
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/directives.js"></script>
     <script type="text/javascript" src="js/controllers/HomeCtrl.js"></script>
+    <script type="text/javascript" src="js/controllers/LocationCtrl.js"></script>
 
-    <script type="text/javascript">
-
-      $.get('csv/january_flickrdump.csv', function(data) {
-        var csvData = $.csv.toObjects(data);
-
-        reOrganizeDataByLocale(csvData);
-      }, 'text');
-
-      var reOrganizeDataByLocale = function(data) {
-        // Organize the data by the locale
-        var localeCategory = [];
-        var localeCount = [];
-
-        for (var i = 0; i < data.length; i++) {
-          var locationArray = data[i].locale.split(",");
-          
-          var location = locationArray[0].substring(3, locationArray[0].length - 1)
-
-          // if the locale caregory does not contain the current item
-          if (localeCategory.indexOf(location) == -1) {
-            localeCategory.push(location);
-            localeCount.push(parseInt(1));
-          } else {
-            localeCount[localeCategory.indexOf(location)] ++;
-          };
-        };
-
-        var chart = new Highcharts.Chart({
-          chart: {
-            renderTo: 'container',
-            type: 'bar'
-          },
-          xAxis: {
-            min: 0,
-            max: 20,
-            categories: localeCategory
-          },
-          scrollbar: {
-            enabled: true
-          },
-          series: [{
-            data: localeCount
-          }]
-        });
-        
-      };
-
-    </script>
   </body>
 </html>
