@@ -46,9 +46,9 @@ angular.module('lazyApp').controller('LocationCtrl',
                 var temp = localeCategory[i];
                 localeCategory[i] = localeCategory[min];
                 localeCategory[min] = temp;
-                var localeCount = tagCount[i];
-                tagCount[i] = tagCount[min];
-                localeCategory[min] = localeCount;
+                var tempCount = localeCount[i];
+                localeCount[i] = localeCount[min];
+                localeCount[min] = tempCount;
               }
             };
 
