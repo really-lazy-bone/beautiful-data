@@ -1,9 +1,9 @@
 beautiful-data
 ==============
 
-This is an Open Source project that focuses on a large-scale data processing and visualization.  Its ultimate goal is to provide researchers, business analysts and students a framework for doing "big data" in relatively short order.
+beautiful-data (BD) is an Open Source project that focuses on a large-scale data processing and visualization.  Its ultimate goal is to provide researchers, business analysts and students a software framework for working with "big data" in relatively short order.
 
-The code organization structure is loosely based on (inspired by) Jean-Paul Calderone's python project directory.  Undoubtedly at somepoint we will have to integrate java and other languages/technologies.  At which point, a reasonable refactoring effort is required.
+The code organization structure is loosely based on (inspired by) Jean-Paul Calderone's python project directory.  Undoubtedly at some point we will have to integrate java and other languages/technologies.  At which point, a reasonable refactoring effort is required.
 
 The project's official website is at http://bd.pcwerk.com/
 
@@ -22,6 +22,15 @@ directory structure
        website/
 
 The bd_ directories contain source code for the four modules of project; the website directory contains the static web-related documents (e.g., .html, .css, and .js files); the bin directory contains wrapper scripts that can be used to execute the project.  In theory, code within the bd_ directories should never be directly executed.
+
+latex setup
+--------------
+
+Texmaker 3.2 was used to create the project.
+
+The following template was used as requested: http://www.latextemplates.com/template/journal-article
+
+If errors are returned in the the compiling of the file, that is probably due to an uninstalled font error. Please make sure to install texlive-fonts-recommended.
 
 References:
 
