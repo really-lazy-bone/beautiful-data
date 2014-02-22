@@ -1,0 +1,23 @@
+<div class="ui column" ng-init="init()">
+    <div class="ui segment blue">
+        <div class="ui ribbon label blue"><h3>Flickr - A Picture is Worth a Single Word</h3></div>
+
+        <google-map center="map.center" zoom="map.zoom" refresh="true" draggable='true'>
+             <markers models="locations" coords="'self'" doCluster="true" click="'onClicked'">
+                 <windows show="'showWindow'" closeClick="'closeClick'">
+                    <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
+
+                    <p ng-non-bindable><a ng-non-bindable href="{{ url }}" target="_blank">
+                        Link to image, {{ url }} </br>
+                    </a></p>
+
+                    <p ng-non-bindable>
+                        <img src="{{ image }}" alt="" class="ui image medium">
+                    </p>
+                </windows>
+             </markers>
+        </google-map>
+
+    </div>
+
+</div>

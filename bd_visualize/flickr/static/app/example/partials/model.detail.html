@@ -1,0 +1,40 @@
+<form name="form" ng-submit="submit(form, model)" novalidate>
+  <div class="input-group">
+    <input
+      ng-model="model.name"
+      class="form-control" type="text" placeholder="Name" required>
+    <span class="input-group-btn">
+      <button
+        ng-disabled="form.$invalid || !form.$dirty"
+        class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span> Save
+      </button> 
+    </span>
+  </div>
+</form>
+
+<div ng-if="$config.debug" style="margin-top: 1em;">
+  <p ng-if="model.id">
+    <a seed-href="{{model.id}}">Read</a> an item by id.
+    <br>
+    <code>GET <span seed-api="{{model.id}}"></span></code>
+  </p>
+  <p ng-if="!model.id">
+    Create an item.
+    <br>
+    <code>POST <span seed-api></span></code>
+  </p>
+</div>
+
+<div ng-if="model.id" style="margin-top: 1em;">
+  <button
+    ng-click="remove(model)"
+    class="btn btn-danger">
+    <span class="glyphicon glyphicon-trash"></span> Delete
+  </button>
+  <p ng-if="$config.debug">
+    Delete an item by id.
+    <br>
+    <code>DELETE <span seed-api="{{model.id}}"></span></code>
+  </p>
+</div>
