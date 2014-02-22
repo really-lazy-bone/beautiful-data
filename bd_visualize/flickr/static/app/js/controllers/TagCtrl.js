@@ -96,7 +96,7 @@ angular.module('lazyApp').controller('TagCtrl',
 
 
         $scope.init = function() {
-            $.get('/map/csv/january_flickrdump.csv', function(data) {
+            $.get('/app/csv/january_flickrdump.csv', function(data) {
                 $scope.csvData = $.csv.toObjects(data);
 
                 $scope.reOrganizeDataByTag($scope.csvData);
