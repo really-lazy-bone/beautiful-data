@@ -1,4 +1,4 @@
-application: angular-seed
+application: lazy-flickr-map
 version: 1
 runtime: python27
 api_version: 1
@@ -29,4 +29,6 @@ handlers:
 
 libraries:
 - name: endpoints
+  version: latest
+- name: numpy
   version: latest

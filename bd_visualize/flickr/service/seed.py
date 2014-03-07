@@ -1,49 +1,37 @@
 import endpoints
 from google.appengine.ext import ndb
 from protorpc import remote
+from protorpc import messages
 
-from model.model import Model
+# Will not use model yet
+# from model.model import Model
 
-@endpoints.api(name="seed", version="v1", description="Seed API",
+# model definitions
+class Photo(ndb.Model):
+    ''' Data getting from Collect.py '''
+    photo_id = ndb.KeyProperty()
+    tags = ndb.StringProperty()
+    locale = ndb.StringProperty()
+    geolocation = ndb.GeoPtProperty()
+    views = ndb.IntegerProperty() # this may be dangerous
+    date_taken = ndb.DateTimeProperty()
+    date_posted = ndb.DateTimeProperty()
+    tags = ndb.StringProperty(repeat=True) # list of String
+
+class PhotoCollection(ndb.Model):
+    ''' Collection of Photo '''
+    items = ndb.MessageProperty(Photo, 1, repeat=True)
+
+# read the data from csv provided
+
+
+# assign the list of photo being read from csv to datastore
+STORED_PHOTOS = PhotoCollection(items=[])
+
+# Web service
+@endpoints.api(name="flickr", version="v1", description="Flickr Photo API",
                allowed_client_ids=[endpoints.API_EXPLORER_CLIENT_ID])
 class Api(remote.Service):
-    @Model.method(path="model", http_method="POST", name="model.create")
-    def model_create(self, model):
-        if model.from_datastore:
-            raise endpoints.BadRequestException()
-
-        model.put()
-        return model
-
-    @Model.method(path="model/{id}", http_method="GET", name="model.read")
-    def model_read(self, model):
-        self._authorize_model(model)
-
-        return model
-
-    @Model.method(path="model/{id}", http_method="POST", name="model.update")
-    def model_update(self, model):
-        self._authorize_model(model)
-
-        model.put()
-        return model
-
-    @Model.method(path="model/{id}", http_method="DELETE", name="model.delete")
-    def model_delete(self, model):
-        self._authorize_model(model)
-    
-        model.key.delete()
-        return Model(id=model.id)
-
-    @Model.query_method(path="model", http_method="GET", name="model.query",
-                        query_fields=("name", "limit", "order", "pageToken"),
-                        limit_default=5, limit_max=50)
-    def model_query(self, query):
-        return query.order(-Model.created)
-
-    @classmethod
-    def _authorize_model(cls, model):
-        if not model.from_datastore:
-            raise endpoints.NotFoundException()
-
-        return model
+    @endpoints.method(path="model/{id}", http_method="GET", name="model.read")
+    def model_list(self, model):
+        return list
