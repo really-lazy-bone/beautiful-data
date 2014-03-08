@@ -1,87 +1,107 @@
 angular.module('lazyApp').controller('LocationCtrl',
-    ['$scope', '$location', 'Resources',
-    function($scope, $location, Resources) {
+    ['$scope', '$location', 'Resources', 'months',
+    function($scope, $location, Resources, months) {
 
-        $scope.reOrganizeDataByLocale = function(data) {
-            // Organize the data by the locale
-            var localeCategory = [];
-            var localeCount = [];
+      $scope.months = months;
 
-            for (var i = 0; i < data.length; i++) {
-              var locationArray = (data[i].locale != undefined) ? data[i].locale : ['!undefined'];
+      $scope.setMonth = function(m) {
+        $scope.month = m;
+        $('.ui.dropdown')
+          .dropdown('hide', function() {
+            console.log('toggle dropdwon to be closed');
+          })
+        ;
+        Resources.getPhotoMonthly(
+            { operation: $scope.month },
+            function(data) {
+              $scope.monthlyData = data.items;
+              $scope.reOrganizeDataByLocale($scope.monthlyData);
+            },
+            function(err){
+              console.log(err);
+          });
+      }
 
-              var location = locationArray[0];
+      $scope.reOrganizeDataByLocale = function(data) {
+          // Organize the data by the locale
+          var localeCategory = [];
+          var localeCount = [];
 
-              // if the locale caregory does not contain the current item
-              var index = localeCategory.indexOf(location);
-              if (index == -1) {
-                localeCategory.push(location);
-                localeCount.push(parseInt(1));
-              } else {
-                localeCount[index] ++;
-              };
+          for (var i = 0; i < data.length; i++) {
+            var locationArray = (data[i].locale != undefined) ? data[i].locale : ['!undefined'];
+
+            var location = locationArray[0];
+
+            // if the locale caregory does not contain the current item
+            var index = localeCategory.indexOf(location);
+            if (index == -1) {
+              localeCategory.push(location);
+              localeCount.push(parseInt(1));
+            } else {
+              localeCount[index] ++;
             };
+          };
 
-            // sort date by selection sort
-            for (var i = 0; i < localeCategory.length; i ++) {
-              var min = i;
+          // sort date by selection sort
+          for (var i = 0; i < localeCategory.length; i ++) {
+            var min = i;
 
-              for (var j = i + 1; j < localeCategory.length; j ++) {
-                if (localeCategory[j] < localeCategory[min]) {
-                  min = j;
-                }
+            for (var j = i + 1; j < localeCategory.length; j ++) {
+              if (localeCategory[j] < localeCategory[min]) {
+                min = j;
               }
+            }
 
-              if (min != i) {
-                var temp = localeCategory[i];
-                localeCategory[i] = localeCategory[min];
-                localeCategory[min] = temp;
-                var tempCount = localeCount[i];
-                localeCount[i] = localeCount[min];
-                localeCount[min] = tempCount;
-              }
-            };
+            if (min != i) {
+              var temp = localeCategory[i];
+              localeCategory[i] = localeCategory[min];
+              localeCategory[min] = temp;
+              var tempCount = localeCount[i];
+              localeCount[i] = localeCount[min];
+              localeCount[min] = tempCount;
+            }
+          };
 
-            var chart = new Highcharts.Chart({
-              chart: {
-                renderTo: 'container',
-                type: 'bar'
-              },
-              xAxis: {
-                min: 0,
-                max: 10,
-                categories: localeCategory
-              },
-              title: {
-                  text: 'Flickr Location Statistic'
-              },
-              subtitle: {
-                  text: 'Basic count'
-              },
-              scrollbar: {
-                enabled: true
-              },
-              series: [{
-                data: localeCount
-              }]
-            });
-        };
+          var chart = new Highcharts.Chart({
+            chart: {
+              renderTo: 'container',
+              type: 'bar'
+            },
+            xAxis: {
+              min: 0,
+              max: 10,
+              categories: localeCategory
+            },
+            title: {
+                text: 'Flickr Location Statistic'
+            },
+            subtitle: {
+                text: 'Basic count'
+            },
+            scrollbar: {
+              enabled: true
+            },
+            series: [{
+              data: localeCount
+            }]
+          });
+      };
 
-        $scope.init = function() {
-            $scope.month = 'january';
-            Resources.getPhotoMonthly(
-              { operation: $scope.month },
-              function(data) {
-                $scope.monthlyData = data.items;
-                console.log(data);
-                console.log('processing data');
-                $scope.reOrganizeDataByLocale($scope.monthlyData);
-                console.log('finished processing data');
-              },
-              function(err){
-                console.log(err);
-              });
-        };
+      $scope.init = function() {
+          $('.ui.dropdown')
+            .dropdown()
+          ;
+          $scope.month = 'january';
+          Resources.getPhotoMonthly(
+            { operation: $scope.month },
+            function(data) {
+              $scope.monthlyData = data.items;
+              $scope.reOrganizeDataByLocale($scope.monthlyData);
+            },
+            function(err){
+              console.log(err);
+          });
+      };
 
     }]
 );
