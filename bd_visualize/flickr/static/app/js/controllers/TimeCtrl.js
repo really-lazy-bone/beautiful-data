@@ -1,44 +1,55 @@
 angular.module('lazyApp').controller('TimeCtrl',
-    ['$scope', '$location', 'Resources', 'Util',
-    function($scope, $location, Resources, Util) {
+    ['$scope', '$location', 'Resources', 'months',
+    function($scope, $location, Resources, months) {
 
-        $scope.csvData = '';
+        $scope.months = months;
+
+        $scope.setMonth = function(m) {
+          $scope.month = m;
+          $('.ui.dropdown')
+            .dropdown('hide', function() {
+              console.log('toggle dropdwon to be closed');
+            })
+          ;
+          Resources.getPhotoMonthly(
+              { operation: $scope.month },
+              function(data) {
+                $scope.monthlyData = data.items;
+                $scope.reOrganizeDataByTime($scope.monthlyData);
+              },
+              function(err){
+                console.log(err);
+            });
+        };
 
         $scope.reOrganizeDataByTime = function(data) {
             // Organize the data by the locale
             var timeData = [];
 
-            $scope.idTracks = [];
-
             // Parsing and counting the time
             for (var i = 0; i < data.length; i++) {
 
-              if ($scope.idTracks.indexOf(data[i].photo_id) > -1) {
-                 continue;
+              var postedDate = new Date(data[i].date_taken);
+
+              var index = -1;
+
+              for (var j = 0; j < timeData.length; j ++) {
+                if ( ( timeData[j][0].getTime() - postedDate.getTime() ) *
+                     ( timeData[j][0].getTime() - postedDate.getTime() ) <
+                      1000*60*60*24*1000*60*60*24) {
+                  index = j;
+                  break;
+                }
+              };
+
+              // if the locale caregory does not contain the current item
+              if (index == -1) {
+                  timeData.push([postedDate, 1]);
               } else {
-                $scope.idTracks.push(data[i].photo_id);
-
-                var postedDate = new Date(data[i].date_taken);
-
-                var index = -1;
-
-                for (var j = 0; j < timeData.length; j ++) {
-                  if ( ( timeData[j][0].getTime() - postedDate.getTime() ) * 
-                       ( timeData[j][0].getTime() - postedDate.getTime() ) < 1000*60*60*24*1000*60*60*24) {
-                    index = j;
-                    break;
-                  }
-                };
-
-                // if the locale caregory does not contain the current item
-                if (index == -1) {
-                    timeData.push([postedDate, 1]);
-                } else {
-                    var temp = timeData[index];
-                    temp[1] ++;
-                    timeData[index] = temp;
-                };
-              }
+                  var temp = timeData[index];
+                  temp[1] ++;
+                  timeData[index] = temp;
+              };
             };
 
             // sort date
@@ -91,7 +102,7 @@ angular.module('lazyApp').controller('TimeCtrl',
                 name: 'Count',
                 data: timeData,
                 pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2013,00,01),
+                pointStart: Date.UTC(2013,11,01),
               }]
             });
 
@@ -99,11 +110,21 @@ angular.module('lazyApp').controller('TimeCtrl',
 
 
         $scope.init = function() {
-            $.get('/app/csv/january_flickrdump.csv', function(data) {
-                $scope.csvData = $.csv.toObjects(data);
+          $('.ui.dropdown')
+            .dropdown()
+          ;
 
-                $scope.reOrganizeDataByTime($scope.csvData);
-            }, 'text');
+          $scope.month = 'january';
+
+          Resources.getPhotoMonthly(
+            { operation: $scope.month },
+            function(data) {
+              $scope.monthlyData = data.items;
+              $scope.reOrganizeDataByTime($scope.monthlyData);
+            },
+            function(err){
+              console.log(err);
+          });
         };
 
     }]

@@ -10,7 +10,6 @@ angular.module('lazyApp').controller('MapCtrl',
             zoom: 5
         };
 
-        $scope.locations = [];
         $scope.months = months;
 
         $scope.setMonth = function(m) {

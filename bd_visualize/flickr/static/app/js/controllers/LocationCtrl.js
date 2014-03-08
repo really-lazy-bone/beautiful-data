@@ -24,8 +24,14 @@ angular.module('lazyApp').controller('LocationCtrl',
 
       $scope.reOrganizeDataByLocale = function(data) {
           // Organize the data by the locale
-          var localeCategory = [];
-          var localeCount = [];
+          var locales = [];
+
+          function indexOfObj(array, obj, property) {
+            for (var i = 0; i < array.length; i ++) {
+              if (array[i][property] == obj) return i;
+            }
+            return -1;
+          };
 
           // basic counting
           for (var i = 0; i < data.length; i++) {
@@ -34,44 +40,41 @@ angular.module('lazyApp').controller('LocationCtrl',
             var location = locationArray[0];
 
             // if the locale caregory does not contain the current item
-            var index = localeCategory.indexOf(location);
+            var index = indexOfObj(locales, location, 0);
             if (index == -1) {
-              localeCategory.push(location);
-              localeCount.push(parseInt(1));
+              var locale = [location, 1];
+              locales.push(locale);
             } else {
-              localeCount[index] ++;
+              locales[index][1] ++;
             };
           };
 
-          // sort date by selection sort
-          for (var i = 0; i < localeCategory.length; i ++) {
-            var min = i;
-
-            for (var j = i + 1; j < localeCategory.length; j ++) {
-              if (localeCategory[j] < localeCategory[min]) {
-                min = j;
-              }
-            }
-
-            if (min != i) {
-              var temp = localeCategory[i];
-              localeCategory[i] = localeCategory[min];
-              localeCategory[min] = temp;
-              var tempCount = localeCount[i];
-              localeCount[i] = localeCount[min];
-              localeCount[min] = tempCount;
-            }
+          function Comparator(a,b){
+              if (a[1] > b[1]) return -1;
+              if (a[1] < b[1]) return 1;
+              return 0;
           };
+
+          locales = locales.sort(Comparator);
 
           var chart = new Highcharts.Chart({
             chart: {
               renderTo: 'container',
-              type: 'bar'
+              type: 'column'
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.075,
+                    borderWidth: 1,
+                    groupPadding: 0,
+                    showCheckBox: true,
+                    shadow: true
+                }
             },
             xAxis: {
               min: 0,
-              max: 10,
-              categories: localeCategory
+              max: 15,
+              type: 'category'
             },
             title: {
                 text: 'Flickr Location Statistic'
@@ -83,7 +86,7 @@ angular.module('lazyApp').controller('LocationCtrl',
               enabled: true
             },
             series: [{
-              data: localeCount
+              data: locales
             }]
           });
       };

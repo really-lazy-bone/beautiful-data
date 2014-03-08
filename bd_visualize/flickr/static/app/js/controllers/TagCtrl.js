@@ -58,34 +58,23 @@ angular.module('lazyApp').controller('TagCtrl',
               };
             };
 
-            // sort date by selection sort
-            for (var i = 0; i < tagCategory.length; i ++) {
-              var min = i;
-
-              for (var j = i + 1; j < tagCategory.length; j ++) {
-                if (tagCategory[j] < tagCategory[min]) {
-                  min = j;
-                }
-              }
-
-              if (min != i) {
-                var temp = tagCategory[i];
-                tagCategory[i] = tagCategory[min];
-                tagCategory[min] = temp;
-                var tempCount = tagCount[i];
-                tagCount[i] = tagCount[min];
-                tagCategory[min] = tempCount;
-              }
-            };
-
             var chart = new Highcharts.Chart({
               chart: {
                 renderTo: 'container',
-                type: 'bar'
+                type: 'column'
+              },
+              plotOptions: {
+                  column: {
+                      pointPadding: 0.075,
+                      borderWidth: 1,
+                      groupPadding: 0,
+                      showCheckBox: true,
+                      shadow: true
+                  }
               },
               xAxis: {
                 min: 0,
-                max: 10,
+                max: 15,
                 categories: tagCategory
               },
               title: {
