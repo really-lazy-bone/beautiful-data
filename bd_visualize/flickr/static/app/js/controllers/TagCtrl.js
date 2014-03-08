@@ -24,8 +24,14 @@ angular.module('lazyApp').controller('TagCtrl',
 
         $scope.reOrganizeDataByTag = function(data) {
             // Organize the data by the locale
-            var tagCategory = [];
-            var tagCount = [];
+            var tagData = [];
+
+            function indexOfObj(array, obj, property) {
+              for (var i = 0; i < array.length; i ++) {
+                if (array[i][property] == obj) return i;
+              }
+              return -1;
+            };
 
             // Parsing and counting the tag
             for (var i = 0; i < data.length; i++) {
@@ -35,28 +41,36 @@ angular.module('lazyApp').controller('TagCtrl',
               for (var j = 0; j < tagsArray.length; j ++) {
                 var tag = tagsArray[j];
 
-                var index = tagCategory.indexOf(tag);
+                var index = indexOfObj(tagData, tag, 0);
 
-                // if the locale caregory does not contain the current item
                 if (index == -1) {
-                    tagCategory.push(tag);
-                    tagCount.push(parseInt(1));
+                    var tagD = [tag, 1];
+                    tagData.push(tagD);
                 } else {
-                    tagCount[index] ++;
+                    tagData[index][1] ++;
                 };
               };
             };
 
-            // remove the tags that shows up less than 10 times
             var i = 0;
-            while (i < tagCategory.length) {
-              if (tagCount[i] < 10) {
-                tagCount.splice(i, 1);
-                tagCategory.splice(i, 1);
-              } else {
-                i ++;
-              };
+            while (i < tagData.length) {
+              if (tagData[i][1] < 10) {
+                tagData.splice(i, 1);
+              }
+              i ++;
+            }
+
+            function Comparator(a,b){
+                if (a[1] > b[1]) return -1;
+                if (a[1] < b[1]) return 1;
+                return 0;
             };
+
+            tagData = tagData.sort(Comparator);
+
+            tagData.splice(999);
+
+            console.log(tagData);
 
             var chart = new Highcharts.Chart({
               chart: {
@@ -75,7 +89,7 @@ angular.module('lazyApp').controller('TagCtrl',
               xAxis: {
                 min: 0,
                 max: 15,
-                categories: tagCategory
+                type: 'category'
               },
               title: {
                   text: 'Flickr Tag Statistic'
@@ -87,7 +101,7 @@ angular.module('lazyApp').controller('TagCtrl',
                 enabled: true
               },
               series: [{
-                data: tagCount
+                data: tagData
               }]
             });
 

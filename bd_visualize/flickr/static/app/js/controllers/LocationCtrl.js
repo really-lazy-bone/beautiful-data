@@ -57,6 +57,8 @@ angular.module('lazyApp').controller('LocationCtrl',
 
           locales = locales.sort(Comparator);
 
+          console.log(locales);
+
           var chart = new Highcharts.Chart({
             chart: {
               renderTo: 'container',
