@@ -4,14 +4,15 @@ from protorpc import messages
 class Photo(messages.Message):
     ''' Data getting from Collect.py '''
     photo_id = messages.StringField(1)
-    tags = messages.StringField(2)
-    locale = messages.StringField(3)
-    #geolocation = messages.GeoPtField(1)
-    views = messages.IntegerField(4) # this may be dangerous
-    #date_taken = messages.DateTimeField(1)
-    #date_posted = messages.DateTimeField(1)
-    # tags = messages.StringField(1repeated=True) # list of String
-    url = messages.StringField(5)
+    tags = messages.StringField(2, repeated=True) # list of String
+    geolocation = messages.FloatField(3, repeated=True)
+    date_taken = messages.StringField(4)
+    date_posted = messages.IntegerField(5)
+    views = messages.IntegerField(6)
+    locale = messages.StringField(7, repeated=True)
+    county = messages.StringField(8, repeated=True)
+    region = messages.StringField(9, repeated=True)
+    url = messages.StringField(10)
 
 
 class PhotoCollection(messages.Message):
