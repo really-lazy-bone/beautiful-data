@@ -47,7 +47,16 @@ for file in os.listdir("csv"):
 @endpoints.api(name="flickr", version="v1", description="Flickr Photo API",
                allowed_client_ids=[endpoints.API_EXPLORER_CLIENT_ID])
 class Api(remote.Service):
-    @endpoints.method(message_types.VoidMessage, photo.PhotoCollection,
-    	path="photo/list", http_method="GET", name="photo.list")
-    def model_list(self, model):
-        return january_collection
+    ID_RESOURCE = endpoints.ResourceContainer(
+            message_types.VoidMessage,
+            month=messages.StringField(1))
+
+    @endpoints.method(ID_RESOURCE, photo.PhotoCollection,
+                      path='photo/{month}', http_method='GET',
+                      name='photo.month')
+    def greeting_get(self, request):
+        try:
+            return PHOTO_DICT[request.month]
+        except (IndexError, TypeError):
+            raise endpoints.NotFoundException('Photo Collection %s not found.' %
+                                              (request.month,))
