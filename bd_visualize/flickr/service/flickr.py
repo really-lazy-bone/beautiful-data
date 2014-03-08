@@ -6,10 +6,42 @@ from protorpc import message_types
 from util import csv_parser
 from model import photo
 
-PHOTO_COLLECTION = photo.PhotoCollection(items=[])
+import os
+
+# separate each month into a collection set
+january_collection = photo.PhotoCollection(items=[])
+february_collection = photo.PhotoCollection(items=[])
+march_collection = photo.PhotoCollection(items=[])
+april_collection = photo.PhotoCollection(items=[])
+may_collection = photo.PhotoCollection(items=[])
+june_collection = photo.PhotoCollection(items=[])
+july_collection = photo.PhotoCollection(items=[])
+august_collection = photo.PhotoCollection(items=[])
+september_collection = photo.PhotoCollection(items=[])
+october_collection = photo.PhotoCollection(items=[])
+november_collection = photo.PhotoCollection(items=[])
+december_collection = photo.PhotoCollection(items=[])
+
+# used for switch case later
+PHOTO_DICT = {
+	'january' : january_collection,
+	'february' : february_collection,
+	'march' : march_collection,
+	'april' : april_collection,
+	'may' : may_collection,
+	'june' : june_collection,
+	'july' : july_collection,
+	'august' : august_collection,
+	'september' : september_collection,
+	'october' : october_collection,
+	'november' : november_collection,
+	'december' : december_collection
+}
 
 # assign the list of photo being read from csv to datastore
-csv_parser.readFileFromCSV('csv/january_flickrdump.csv', PHOTO_COLLECTION)
+for file in os.listdir("csv"):
+	filename = file.split(".")[0]
+	csv_parser.readFileFromCSV("csv/" + file, PHOTO_DICT[filename])
 
 # Web service
 @endpoints.api(name="flickr", version="v1", description="Flickr Photo API",
@@ -18,4 +50,4 @@ class Api(remote.Service):
     @endpoints.method(message_types.VoidMessage, photo.PhotoCollection,
     	path="photo/list", http_method="GET", name="photo.list")
     def model_list(self, model):
-        return PHOTO_COLLECTION
+        return january_collection
