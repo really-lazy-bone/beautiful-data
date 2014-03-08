@@ -1,7 +1,7 @@
 angular.module('lazyApp').controller('MapCtrl',
-    ['$scope', '$location', 'Resources', 'Util',
-    function($scope, $location, Resources, Util) {
-
+    ['$scope', '$location', 'Resources', 'months',
+    function($scope, $location, Resources, months) {
+        // Put the map center at the center of United States
         $scope.map = {
             center: {
                 latitude: 40,
@@ -10,48 +10,68 @@ angular.module('lazyApp').controller('MapCtrl',
             zoom: 5
         };
 
-        $scope.csvData = '';
-
         $scope.locations = [];
+        $scope.months = months;
 
-        $scope.idTracks = [];
+        $scope.setMonth = function(m) {
+            $scope.month = m;
+            $('.ui.dropdown')
+              .dropdown('hide', function() {
+                console.log('toggle dropdwon to be closed');
+              })
+            ;
+            Resources.getPhotoMonthly(
+                { operation: $scope.month },
+                function(data) {
+                  $scope.monthlyData = data.items;
+                  $scope.reOrganizeDataByLocation($scope.monthlyData);
+                },
+                function(err){
+                  console.log(err);
+              });
+        }
+
 
         $scope.reOrganizeDataByLocation = function(data) {
+            $scope.locations = [];
 
-            for (var i = 0; i < data.length; i++) {
+          for (var i = 0; i < data.length; i++) {
+            var locationArray = data[i].geolocation;
 
-              if ($scope.idTracks.indexOf(data[i].photo_id) > -1) {
-                 continue;
-              } else {
-                  $scope.idTracks.push(data[i].photo_id);
+            var latitude = parseFloat( locationArray[0] );
+            var longitude = parseFloat( locationArray[1] );
+            var imageLink = data[i].url.indexOf("jpg") > -1 ? data[i].url : "";
 
-                  var locationArray = data[i].geolocation.split(",");
-            
-                  var latitude = parseFloat( locationArray[0].substring(1, locationArray[0].length) );
-                  var longitude = parseFloat( locationArray[1].substring(0, locationArray[1].length-1) );
-                  var imageLink = data[i].url.indexOf("jpg") > -1 ? data[i].url : "";
+            var location = {
+              'title': 'test',
+              'latitude': latitude,
+              'longitude': longitude,
+              'url': "" + data[i].url,
+              'image': imageLink
+            };
 
-                  var location = {
-                    'title': 'test',
-                    'latitude': latitude, 
-                    'longitude': longitude,
-                    'url': "" + data[i].url,
-                    'image': imageLink
-                };
+            $scope.locations.push(location);
+          }
 
-                  $scope.locations.push(location);
-                };
-              }
-              
         };
 
 
         $scope.init = function() {
-            $.get('/app/csv/january_flickrdump.csv', function(data) {
-                $scope.csvData = $.csv.toObjects(data);
+            $('.ui.dropdown')
+             .dropdown()
+            ;
 
-                $scope.reOrganizeDataByLocation($scope.csvData);
-            }, 'text');
+            $scope.month = 'january';
+
+            Resources.getPhotoMonthly(
+                { operation: $scope.month },
+                function(data) {
+                  $scope.monthlyData = data.items;
+                  $scope.reOrganizeDataByLocation($scope.monthlyData);
+                },
+                function(err){
+                  console.log(err);
+              });
         };
 
     }]

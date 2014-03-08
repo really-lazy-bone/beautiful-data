@@ -27,6 +27,7 @@ angular.module('lazyApp').controller('LocationCtrl',
           var localeCategory = [];
           var localeCount = [];
 
+          // basic counting
           for (var i = 0; i < data.length; i++) {
             var locationArray = (data[i].locale != undefined) ? data[i].locale : ['!undefined'];
 
@@ -76,7 +77,7 @@ angular.module('lazyApp').controller('LocationCtrl',
                 text: 'Flickr Location Statistic'
             },
             subtitle: {
-                text: 'Basic count'
+                text: 'Basic Count'
             },
             scrollbar: {
               enabled: true
@@ -91,7 +92,9 @@ angular.module('lazyApp').controller('LocationCtrl',
           $('.ui.dropdown')
             .dropdown()
           ;
+
           $scope.month = 'january';
+
           Resources.getPhotoMonthly(
             { operation: $scope.month },
             function(data) {
