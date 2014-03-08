@@ -20,7 +20,7 @@ angular.module('lazyApp').controller('LocationCtrl',
             function(err){
               console.log(err);
           });
-      }
+      };
 
       $scope.reOrganizeDataByLocale = function(data) {
           // Organize the data by the locale
