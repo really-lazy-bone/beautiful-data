@@ -3,7 +3,9 @@
 import sys
 import numpy as np
 import argparse
+import pylab as plt
 from collections import defaultdict
+from bd_visualize import simple as s
 
 def readStdin():
     row = 0 
@@ -22,6 +24,8 @@ def parseArguments():
     parser = argparse.ArgumentParser(usage='%(prog)s [options]',
                                      description='bd application')
 
+    parser.add_argument('-p', '--plot-type', default='xy', required=True,
+                        help='set plot type: xy, pie, or histogram')
     parser.add_argument('-B', '--no-border', action='store_true', default=False)
     parser.add_argument('-e', '--debug', action='store_true', default=False)
     parser.add_argument('-c', '--color', default='', 
@@ -54,6 +58,16 @@ if __name__ == "__main__":
 
     config = defaultdict(list)
     args = parseArguments()
-
     array = readStdin()
     print array
+
+    if args.plot_type == 'xy':
+       print 'doing xy plot'
+    elif args.plot_type == 'pie':
+       print 'doing pie plot'
+    elif args.plot_type == 'histogram':
+       print 'doing histogram plot'
+    elif args.plot_type == 'simple':
+       s.simplePlot(args, array)
+    else:
+       print 'unknown plot type'
