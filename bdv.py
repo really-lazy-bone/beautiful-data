@@ -69,5 +69,6 @@ if __name__ == "__main__":
        print 'doing histogram plot'
     elif args.plot_type == 'simple':
        s.simplePlot(args, array)
+       plt.savefig('simple.png')
     else:
        print 'unknown plot type'
