@@ -6,6 +6,7 @@ import argparse
 import pylab as plt
 from collections import defaultdict
 from bd_visualize import simple as s
+from bd_visualize import pie as p
 
 def readStdin():
     row = 0 
@@ -25,7 +26,7 @@ def parseArguments():
 
     parser.add_argument('-p', '--plot-type', default='xy', required=True, help='set plot type: xy, pie, or histogram')
     parser.add_argument('-B', '--no-border', action='store_true', default=False)
-    parser.add_argument('-e', '--debug', action='store_true', default=False)
+    parser.add_argument('-e', '--debug', action='store_true', default=False)    
     parser.add_argument('-c', '--color', default='', help='color of the curves = roygbiv')
     parser.add_argument('-D', '--scale', default='0', help='0: linear, 1: log-linear, 2: linear-log, 3: log-log') 
     parser.add_argument('-g', '--grid', default=False, action='store_true')
@@ -39,6 +40,7 @@ def parseArguments():
     parser.add_argument('-y', '--ylabel', default='', help='label the y-axis')
     parser.add_argument('-z', '--no-x-markers', default=False, action='store_true', help='disable the x markers')
     parser.add_argument('-Z', '--no-y-markers', default=False, action='store_true', help='disable the y markers')
+    parser.add_argument('--element', default='0', help='for pie chart; 0: all rows, 1 to n: row number')
 
     return parser.parse_args()
 
@@ -51,7 +53,7 @@ if __name__ == "__main__":
     if args.plot_type == 'xy':
        print 'doing xy plot'
     elif args.plot_type == 'pie':
-       print 'doing pie plot'
+       p.piePlot(args, array)
     elif args.plot_type == 'histogram':
        print 'doing histogram plot'
     elif args.plot_type == 'simple':
