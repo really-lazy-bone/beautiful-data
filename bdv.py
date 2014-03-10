@@ -11,6 +11,7 @@ from collections import defaultdict
 from bd_visualize import histogram_plot as hi
 from bd_visualize import xyplotter as xy
 from bd_visualize import simple as sp
+from bd_visualize import pie as pi
 
 def readData(args):
     row = 0 
@@ -47,6 +48,7 @@ def parseArguments():
     parser.add_argument('-k', '--time-series', default=False, action='store_true', help='use time mode for x markers')
     parser.add_argument('-m', '--marker', metavar='M', default='', help='set markers of the curves: M = "x+*"')
     parser.add_argument('-n', '--no-line', action='store_true', default=False, help='no lines between points, aka scatter plot')
+    parser.add_argument('-N', '--element', default='0', help='Specify strides for pie chart 0: all rows, 1 to n: row number')
     parser.add_argument('-p', '--type', default='xy', metavar='type', help='set plot type: T = xy, pie, or histogram')
     parser.add_argument('-P', '--png-filename', default='image.png', metavar='<filename>', help='specify output filename')
     parser.add_argument('-S', '--same-scale', default=False, action='store_true', help='force x and y to scale the same')
@@ -71,6 +73,8 @@ if __name__ == "__main__":
        hi.plothistogram(args, array)
     elif args.type == 'simple':
        sp.simplePlot(args, array)
+    elif args.type == 'pie':
+       pi.piePlot(args, array)
     else:
        print 'unknown plot type'
        exit
