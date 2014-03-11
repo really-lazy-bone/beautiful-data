@@ -1,0 +1,15 @@
+<div class="ui column" ng-init="init()">
+    <div class="ui segment blue">
+        <div class="ui ribbon label blue"><h3>Statistic for the Time of the picture taken</h3></div>
+
+		<div class="ui selection dropdown">
+		    <div class="text">{{ month }}</div>
+		    <i class="dropdown icon"></i>
+		    <div class="menu">
+		      <div class="item" ng-class="{active: m==month}" ng-repeat="m in months" ng-click="setMonth(m)">{{ m }}</div>
+		    </div>
+		</div>
+
+        <div id="container"></div>
+    </div>
+</div>

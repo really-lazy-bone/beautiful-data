@@ -1,0 +1,67 @@
+<!doctype html>
+<html ng-app="lazyApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Beautiful-data by really-lazy-bone</title>
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="/app/lib/semantic-ui/css/semantic.css">
+
+    <link rel="stylesheet" href="/app/css/styles.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header class="ui grid blue page text menu">
+      <div class="header large pink item">
+        <i class="flickr icon"></i> <strong class="reflected">Flickr Data</strong>
+      </div>
+      <a class="item" href="#/home" active-link="active">
+        <i class="home icon"></i> Home
+      </a>
+      <a class="item" href="#/location" active-link="active">
+        <i class="location icon"></i> Location Statistic
+      </a>
+      <a class="item" href="#/tag" active-link="active">
+        <i class="tag icon"></i> Tag Statistic
+      </a>
+      <a class="item" href="#/time" active-link="active">
+        <i class="time icon"></i> Time Statistic
+      </a>
+      <a class="item" href="#/map" active-link="active">
+        <i class="map icon"></i> Map Statistic
+      </a>
+    </header>
+
+    <div class="ui grid page" ng-view></div>
+
+    <!-- Read the javascript at the end of the body tag to increase the page load speed -->
+    <script type="text/javascript" src="/app/lib/jquery/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="/app/lib/jquery/jquery.csv-0.71.js"></script>
+    <script type="text/javascript" src="/app/lib/semantic-ui/javascript/semantic.js"></script>
+    <script type="text/javascript" src="/app/lib/highstock/js/highstock.js"></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi2JhMTiQuQdTv55x8o35i-A19kFzyep4&sensor=false"></script>
+    <script type="text/javascript" src="/app/lib/underscore/underscore.js"></script>
+
+    <!-- Feel the power of Angular! -->
+    <script type="text/javascript" src="/app/lib/angular/angular.js"></script>
+    <script type="text/javascript" src="/app/lib/angular/angular-route.js"></script>
+    <script type="text/javascript" src="/app/lib/angular/angular-resource.js"></script>
+    <script type="text/javascript" src="/app/lib/angular/angular-google-maps.min.js"></script>
+
+    <script type="text/javascript" src="/app/js/app.js"></script>
+    <script type="text/javascript" src="/app/js/services.js"></script>
+    <script type="text/javascript" src="/app/js/directives.js"></script>
+    <script type="text/javascript" src="/app/js/controllers/HomeCtrl.js"></script>
+    <script type="text/javascript" src="/app/js/controllers/LocationCtrl.js"></script>
+    <script type="text/javascript" src="/app/js/controllers/TagCtrl.js"></script>
+    <script type="text/javascript" src="/app/js/controllers/TimeCtrl.js"></script>
+    <script type="text/javascript" src="/app/js/controllers/MapCtrl.js"></script>
+
+  </body>
+</html>
