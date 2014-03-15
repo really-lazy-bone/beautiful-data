@@ -7,7 +7,9 @@ angular.module('lazyApp', [
   'ngResource',
   'google-maps',
   'lazyApp.services',
-  'lazyApp.directives'
+  'lazyApp.directives',
+  'angulartics',
+  'angulartics.google.analytics'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: '/app/partials/home.html', controller: 'HomeCtrl'});

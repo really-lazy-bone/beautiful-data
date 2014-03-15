@@ -1,24 +1,48 @@
+/* General content */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #999999;
+    background-image: url(http://www.transparenttextures.com/patterns/gplay.png);
+    color: #ffffff;
+}
+
+header {
+    padding: 10px 0 !important;
+    margin-top: 0 !important;
+    border-bottom: 1px solid #666;
+    box-shadow: 0 4px 5px -2px gray !important;
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Semantic UI */
+.ui.message.black {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.ui.menu .item.pink {
+    color: deeppink !important;
+}
+
+.ui.menu .item {
+    color: inherit !important;
+}
+
+/* Wrapper */
 #container {
-    width: 95%;
-    height: 450px;
+    width: 100%;
     overflow: auto;
 }
 
-.angular-google-map-container { height: 500px; }
-
-.ui.segment {
-    -webkit-box-shadow: 0 0 10px #66f;
-    box-shadow: 0 0 10px #66f;
+.angular-google-map-container {
+    height: 570px;
 }
 
 .pink {
     color: deeppink !important;
 }
 
-.ui.menu.secondary {
-    padding-bottom: 10px;
-}
-
+/* Reflected text */
 .reflected {
     position: relative;
 }
@@ -42,7 +66,6 @@
     /* Fading using CSS gradient */
     /* Don't forget to change the colors to your background color */
     background: -webkit-gradient(linear, left top, left center, from(rgba(255,255,255,0)), to(rgb(255,255,255)));
-    background: -moz-linear-gradient(top, rgba(255,255,255,0), rgb(255,255,255));
     /* I left out the `filter` property,
        because IE doesn't know `:before` and `:after` pseudo-elements anyway */
     content: ' ';

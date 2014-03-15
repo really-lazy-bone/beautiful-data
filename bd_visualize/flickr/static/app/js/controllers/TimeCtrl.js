@@ -29,14 +29,12 @@ angular.module('lazyApp').controller('TimeCtrl',
             // Parsing and counting the time
             for (var i = 0; i < data.length; i++) {
 
-              var postedDate = new Date(data[i].date_taken);
+              var postedDate = new Date(data[i].date_taken.split(" ")[0]);
 
               var index = -1;
 
               for (var j = 0; j < timeData.length; j ++) {
-                if ( ( timeData[j][0].getTime() - postedDate.getTime() ) *
-                     ( timeData[j][0].getTime() - postedDate.getTime() ) <
-                      1000*60*60*24*1000*60*60*24) {
+                if ( timeData[j] == postedDate ) {
                   index = j;
                   break;
                 }
@@ -46,28 +44,17 @@ angular.module('lazyApp').controller('TimeCtrl',
               if (index == -1) {
                   timeData.push([postedDate, 1]);
               } else {
-                  var temp = timeData[index];
-                  temp[1] ++;
-                  timeData[index] = temp;
+                  timeData[index][1]++;
               };
             };
 
-            // sort date
-            for (var i = 0; i < timeData.length; i ++) {
-              var min = i;
-
-              for (var j = i + 1; j < timeData.length; j ++) {
-                if (timeData[j][0] < timeData[min][0]) {
-                  min = j;
-                }
-              }
-
-              if (min != i) {
-                var temp = timeData[i];
-                timeData[i] = timeData[min];
-                timeData[min] = temp;
-              }
+            function Comparator(a,b){
+                if (a[0] < b[0]) return -1;
+                if (a[0] > b[0]) return 1;
+                return 0;
             };
+
+            timeData = timeData.sort(Comparator);
 
             // Create a timer
             var start = + new Date();
@@ -99,10 +86,7 @@ angular.module('lazyApp').controller('TimeCtrl',
                   text: 'Basic count'
               },
               series: [{
-                name: 'Count',
-                data: timeData,
-                pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2013,11,01),
+                data: timeData
               }]
             });
 
