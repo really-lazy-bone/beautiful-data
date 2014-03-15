@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Beautiful-data by really-lazy-bone</title>
+    <title>ng-Flickr</title>
 
     <!-- Semantic UI CSS -->
     <link rel="stylesheet" href="/app/lib/semantic-ui/css/semantic.css">
-
+    <link rel="stylesheet" href="/app/lib/animate.css/animate.css">
     <link rel="stylesheet" href="/app/css/styles.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -16,9 +16,9 @@
     <![endif]-->
   </head>
   <body>
-    <header class="ui grid blue page text menu">
+    <header class="ui grid blue text menu">
       <div class="header large pink item">
-        <i class="flickr icon"></i> <strong class="reflected">Flickr Data</strong>
+      <i class="flickr icon"></i> <strong class="">Flickr Data</strong>
       </div>
       <a class="item" href="#/home" active-link="active">
         <i class="home icon"></i> Home
@@ -37,13 +37,14 @@
       </a>
     </header>
 
-    <div class="ui grid page" ng-view></div>
+    <div class="ui grid" ng-view></div>
 
     <!-- Read the javascript at the end of the body tag to increase the page load speed -->
     <script type="text/javascript" src="/app/lib/jquery/jquery-2.1.0.js"></script>
     <script type="text/javascript" src="/app/lib/jquery/jquery.csv-0.71.js"></script>
     <script type="text/javascript" src="/app/lib/semantic-ui/javascript/semantic.js"></script>
     <script type="text/javascript" src="/app/lib/highstock/js/highstock.js"></script>
+    <script type="text/javascript" src="/app/js/highstock/themes/dark-transparent.js"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi2JhMTiQuQdTv55x8o35i-A19kFzyep4&sensor=false"></script>
     <script type="text/javascript" src="/app/lib/underscore/underscore.js"></script>
