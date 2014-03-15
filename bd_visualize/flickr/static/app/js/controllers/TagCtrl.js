@@ -92,10 +92,7 @@ angular.module('lazyApp').controller('TagCtrl',
                 type: 'category'
               },
               title: {
-                  text: 'Flickr Tag Statistic'
-              },
-              subtitle: {
-                  text: 'Basic count'
+                  text: ''
               },
               scrollbar: {
                 enabled: true

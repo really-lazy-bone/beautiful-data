@@ -10,16 +10,11 @@ Highcharts.theme = {
 		backgroundColor: {
 			linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
 			stops: [
-				[0, 'rgba(48, 48, 96, 0.2)'],
-				[1, 'rgba(0, 0, 0, 0.1)']
+				[0, 'rgba(48, 48, 96, 0.0)'],
+				[1, 'rgba(0, 0, 0, 0.0)']
 			]
 		},
-		borderColor: '#666666',
-		borderWidth: 1,
 		className: 'dark-container',
-		plotBackgroundColor: 'rgba(255, 255, 255, .1)',
-		plotBorderColor: '#CCCCCC',
-		plotBorderWidth: 1
 	},
 	title: {
 		style: {

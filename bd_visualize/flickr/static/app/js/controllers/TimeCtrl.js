@@ -80,10 +80,7 @@ angular.module('lazyApp').controller('TimeCtrl',
                 maxZoom: 1 * 3600 * 100
               },
               title: {
-                  text: 'Flickr Time Statistic'
-              },
-              subtitle: {
-                  text: 'Basic count'
+                  text: ''
               },
               series: [{
                 data: timeData

@@ -5,12 +5,6 @@ angular.module('lazyApp').controller('LocationCtrl',
       $scope.months = months;
 
       $scope.setMonth = function(m) {
-        $scope.month = m;
-        $('.ui.dropdown')
-          .dropdown('hide', function() {
-            console.log('toggle dropdwon to be closed');
-          })
-        ;
         Resources.getPhotoMonthly(
             { operation: $scope.month },
             function(data) {
@@ -20,6 +14,12 @@ angular.module('lazyApp').controller('LocationCtrl',
             function(err){
               console.log(err);
           });
+        $scope.month = m;
+        $('.ui.dropdown')
+          .dropdown('hide', function() {
+            console.log('toggle dropdwon to be closed');
+          })
+        ;
       };
 
       $scope.reOrganizeDataByLocale = function(data) {
@@ -62,7 +62,7 @@ angular.module('lazyApp').controller('LocationCtrl',
           var chart = new Highcharts.Chart({
             chart: {
               renderTo: 'container',
-              type: 'column'
+              type: 'pie'
             },
             plotOptions: {
                 column: {
@@ -78,15 +78,7 @@ angular.module('lazyApp').controller('LocationCtrl',
               max: 15,
               type: 'category'
             },
-            title: {
-                text: 'Flickr Location Statistic'
-            },
-            subtitle: {
-                text: 'Basic Count'
-            },
-            scrollbar: {
-              enabled: true
-            },
+            title: '',
             series: [{
               data: locales
             }]
@@ -94,21 +86,22 @@ angular.module('lazyApp').controller('LocationCtrl',
       };
 
       $scope.init = function() {
-          $('.ui.dropdown')
-            .dropdown()
-          ;
-
           $scope.month = 'january';
-
           Resources.getPhotoMonthly(
             { operation: $scope.month },
             function(data) {
               $scope.monthlyData = data.items;
               $scope.reOrganizeDataByLocale($scope.monthlyData);
+              $('.ui.dropdown')
+                .dropdown('hide', function() {
+                  console.log('toggle dropdwon to be closed');
+                })
+              ;
             },
             function(err){
               console.log(err);
           });
+
       };
 
     }]

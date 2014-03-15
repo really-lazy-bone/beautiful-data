@@ -1,4 +1,8 @@
 /* General content */
+html, body {
+    width: 100%;
+    height: 100%;
+}
 body {
     margin: 0;
     padding: 0;
@@ -15,6 +19,17 @@ header {
     background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
+.body-container {
+    height: -webkit-calc(100% - 58px);
+    height: calc(100% - 58px);
+}
+
+.ui.grid > .column:only-child, .ui.grid > .row > .column:only-child {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100%;
+}
+
 /* Semantic UI */
 .ui.message.black {
     background-color: rgba(0, 0, 0, 0.2) !important;
@@ -28,14 +43,23 @@ header {
     color: inherit !important;
 }
 
+.ui.dropdown .menu {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.ui.header .icon {
+    display: inline-block;
+}
+
 /* Wrapper */
 #container {
+    height: 90%;
     width: 100%;
     overflow: auto;
 }
 
-.angular-google-map-container {
-    height: 570px;
+.angular-google-map, .angular-google-map-container {
+    height: 100%;
 }
 
 .pink {
