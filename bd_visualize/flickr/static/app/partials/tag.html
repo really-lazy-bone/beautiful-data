@@ -1,7 +1,7 @@
 <div class="ui column" ng-init="init()">
-    <div class="ui center aligned header">Statistic for the Tag of the picture for
+    <div class="ui center aligned header">Picture Tag Statistics for the month of
         <div class="ui basic dropdown">
-            {{ month }} <i class="ui dropdown icon"></i>
+            {{ month | uppercase }} <i class="ui dropdown icon"></i>
             <div class="menu">
               <div class="item" ng-class="{active: m==month}" ng-repeat="m in
                 months" ng-click="setMonth(m)">{{ m }}</div>
@@ -9,5 +9,7 @@
         </div>
     </div>
 
-    <div id="container"></div>
+    <div id="container">
+        <canvas id="tagcloud"></canvas>
+    </div>
 </div>

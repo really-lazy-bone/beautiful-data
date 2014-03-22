@@ -1,7 +1,7 @@
 <div class="ui column" ng-init="init()">
-    <div class="ui center aligned header">Statistic for the Time of the picture for
+    <div class="ui center aligned header">Picture Time Taken Statistics for month of
         <div class="ui basic dropdown">
-            {{ month }} <i class="ui dropdown icon"></i>
+            {{ month | uppercase }} <i class="ui dropdown icon"></i>
             <div class="menu">
               <div class="item" ng-class="{active: m==month}" ng-repeat="m in
                 months" ng-click="setMonth(m)">{{ m }}</div>

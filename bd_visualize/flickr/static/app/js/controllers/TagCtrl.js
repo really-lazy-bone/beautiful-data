@@ -68,39 +68,16 @@ angular.module('lazyApp').controller('TagCtrl',
 
             tagData = tagData.sort(Comparator);
 
-            tagData.splice(999);
-
-            console.log(tagData);
-
-            var chart = new Highcharts.Chart({
-              chart: {
-                renderTo: 'container',
-                type: 'column'
-              },
-              plotOptions: {
-                  column: {
-                      pointPadding: 0.075,
-                      borderWidth: 1,
-                      groupPadding: 0,
-                      showCheckBox: true,
-                      shadow: true
-                  }
-              },
-              xAxis: {
-                min: 0,
-                max: 15,
-                type: 'category'
-              },
-              title: {
-                  text: ''
-              },
-              scrollbar: {
-                enabled: true
-              },
-              series: [{
-                data: tagData
-              }]
-            });
+            WordCloud(
+              document.getElementById('tagcloud'),
+              {
+                list: tagData,
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                hover: function drawBox(item, dimension) {
+                  console.log(item)
+                },
+              }
+            );
 
         };
 
@@ -111,6 +88,17 @@ angular.module('lazyApp').controller('TagCtrl',
             ;
 
             $scope.month = 'january';
+
+            var canvas = document.getElementById('tagcloud')
+
+            // Set the width and height
+            var width = document.getElementById('container').offsetWidth;
+            var height = document.getElementById('container').offsetHeight;
+            var pixelWidth = width;
+            var pixelHeight = height;
+
+            canvas.width = pixelWidth;
+            canvas.height = pixelHeight;
 
             Resources.getPhotoMonthly(
               { operation: $scope.month },

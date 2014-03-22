@@ -18,3 +18,18 @@ class Photo(messages.Message):
 class PhotoCollection(messages.Message):
     ''' Collection of flickr Photo '''
     items = messages.MessageField(Photo, 1, repeated=True)
+
+class StatisticModel(messages.Message):
+    ''' the statistic model returning to the client '''
+    name = messages.StringField(1)
+    y = messages.FloatField(2, required=True)
+
+class StatisticCollection(messages.Message):
+    ''' collection of the data set '''
+    items = messages.MessageField(StatisticModel, 1, repeated=True)
+
+class MapData(messages.Message):
+    ''' data used for the map displaying '''
+    url = messages.StringField(1)
+    latitude = messages.FloatField(2)
+    longitude = messages.FloatField(3)

@@ -23,7 +23,7 @@ angular.module('lazyApp.services', []).
   	'december'
   ]).
   factory('Resources', function($resource) {
-    return $resource('/_ah/api/flickr/:version/:model/:operation',
+    return $resource('/_ah/api/flickr/:version/:data/:model/:field/:operation',
         {
         	version: 'v1'
         },
@@ -31,8 +31,13 @@ angular.module('lazyApp.services', []).
         	getPhotoMonthly:
         	{
         		method: 'GET',
-        		params: { model: 'photo' }
-        	}
+        		params: { data: 'photo' }
+        	},
+          getPhotoStatistic:
+          {
+            method: 'GET',
+            params: { data: 'photo' }
+          }
         }
     );
   });

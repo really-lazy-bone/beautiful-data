@@ -34,7 +34,9 @@ angular.module('lazyApp').controller('TimeCtrl',
               var index = -1;
 
               for (var j = 0; j < timeData.length; j ++) {
-                if ( timeData[j] == postedDate ) {
+                if ( timeData[j][0].getYear() === postedDate.getYear() &&
+                    timeData[j][0].getMonth() === postedDate.getMonth() &&
+                    timeData[j][0].getDate() === postedDate.getDate() ) {
                   index = j;
                   break;
                 }
@@ -56,6 +58,10 @@ angular.module('lazyApp').controller('TimeCtrl',
 
             timeData = timeData.sort(Comparator);
 
+            for (var i = 0; i < timeData.length; i++) {
+              timeData[i][0] = timeData[i][0].getTime();
+            };
+
             // Create a timer
             var start = + new Date();
 
@@ -72,17 +78,24 @@ angular.module('lazyApp').controller('TimeCtrl',
                 type: 'spline',
                 zoomType: 'x'
               },
-              rangeSelector: {
-                  selected: 1
-              },
               xAxis: {
                 type: 'datetime',
-                maxZoom: 1 * 3600 * 100
+                dateTimeLabelFormats: { // don't display the dummy year
+                    month: '%b %e.',
+                    year: '%b'
+                }
+              },
+              tooltip: {
+                  formatter: function() {
+                          return '<b>'+ this.series.name +'</b><br/>'+
+                          Highcharts.dateFormat('%b %e.', this.x) +': '+ this.y +' photos.';
+                  }
               },
               title: {
                   text: ''
               },
               series: [{
+                name: $scope.month,
                 data: timeData
               }]
             });

@@ -1,12 +1,9 @@
-angular-appengine-seed
-======================
-
-Sample application for using AngularJS backed with a Cloud Endpoint on Google
-App Engine.
+ng-Flick
+========
 
 ## Live Version
 
-https://angular-seed.appspot.com
+https://lazy-flickr-map.appspot.com
 
 ## Directory Layout
 

@@ -5,11 +5,13 @@
 angular.module('lazyApp', [
   'ngRoute',
   'ngResource',
+  'ngAnimate',
   'google-maps',
   'lazyApp.services',
   'lazyApp.directives',
   'angulartics',
-  'angulartics.google.analytics'
+  'angulartics.google.analytics',
+  'chieffancypants.loadingBar'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: '/app/partials/home.html', controller: 'HomeCtrl'});

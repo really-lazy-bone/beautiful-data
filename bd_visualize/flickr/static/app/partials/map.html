@@ -1,7 +1,7 @@
 <div class="ui column" ng-init="init()">
-    <div class="ui center aligned header">Statistic for the Map of the picture for
+    <div class="ui center aligned header">Picture Location Mapping for the month of
         <div class="ui basic dropdown">
-            {{ month }} <i class="ui dropdown icon"></i>
+            {{ month | uppercase }} <i class="ui dropdown icon"></i>
             <div class="menu">
               <div class="item" ng-class="{active: m==month}" ng-repeat="m in
                 months" ng-click="setMonth(m)">{{ m }}</div>
@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <google-map center="map.center" zoom="map.zoom" refresh="true" draggable='true' style="height: 90%; display:block;">
+    <google-map center="map.center" zoom="map.zoom" options="options" refresh="true" draggable='true' style="height: 90%; display:block;">
          <markers models="locations" coords="'self'" doCluster="true" click="'onClicked'">
              <windows show="'showWindow'" closeClick="'closeClick'">
                 <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>

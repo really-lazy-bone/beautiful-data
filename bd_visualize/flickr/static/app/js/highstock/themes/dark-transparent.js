@@ -4,7 +4,7 @@
  */
 
 Highcharts.theme = {
-	colors: ["rgba(110, 207, 245, 0.6)", "rgba(110, 207, 245, 0.3)", "#DF5353", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+	colors: ["rgba(150, 227, 255, 0.8)", "rgba(110, 207, 245, 0.3)", "#DF5353", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
 		"#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
 	chart: {
 		backgroundColor: {

@@ -10,6 +10,75 @@ angular.module('lazyApp').controller('MapCtrl',
             zoom: 5
         };
 
+        $scope.styles = [
+          {
+            "stylers": [
+              { "visibility": "simplified" },
+              { "invert_lightness": true }
+            ]
+          },{
+            "featureType": "administrative.locality",
+            "stylers": [
+              { "visibility": "on" },
+              { "color": "#FF28aa" },
+              { "weight": 0.1 }
+            ]
+          },{
+            "featureType": "administrative.neighborhood",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.land_parcel",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.country",
+            "stylers": [
+              { "visibility": "on" }
+            ]
+          },{
+            "featureType": "administrative.province",
+            "stylers": [
+              { "visibility": "on" }
+            ]
+          },{
+            "featureType": "poi",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "landscape",
+            "stylers": [
+              { "lightness": -100 },
+              { "color": "#333333" }
+            ]
+          },{
+            "featureType": "road",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.province",
+            "stylers": [
+              { "color": "#FF1493" },
+              { "weight": 0.6 }
+            ]
+          },{
+            "featureType": "administrative.country",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative"  }
+        ];
+
+        $scope.options = {
+          styles: $scope.styles,
+          disableDefaultUI: true
+        };
+
         $scope.months = months;
 
         $scope.setMonth = function(m) {
@@ -32,7 +101,7 @@ angular.module('lazyApp').controller('MapCtrl',
 
 
         $scope.reOrganizeDataByLocation = function(data) {
-            $scope.locations = [];
+          $scope.locations = [];
 
           for (var i = 0; i < data.length; i++) {
             var locationArray = data[i].geolocation;
@@ -51,7 +120,6 @@ angular.module('lazyApp').controller('MapCtrl',
 
             $scope.locations.push(location);
           }
-
         };
 
 
