@@ -119,7 +119,7 @@ class FlickrCrawl(object):
 
     def run(self, min_date, max_date):
 
-        page = 1
+        page = 2001
         has_more_pages = True
 
         while has_more_pages:
@@ -147,7 +147,7 @@ class FlickrCrawl(object):
                     print photo_id
                     if photo_id is not None:
                         try:
-                            photo = self.flickr.photos_getInfo(photo_id=photo_id, format='json')
+                            photo = self.flickr_api.photos_getInfo(photo_id=photo_id, format='json')
                         except Exception as e:
                             print e
                             pass
@@ -215,21 +215,7 @@ def main():
     min_date_is_valid = validate_date(min_taken_date)
     max_date_is_valid = validate_date(max_taken_date)
 
-    while min_date_is_valid and max_date_is_valid:
-        # ts = time.time()
-        # st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        # print st
-
-        # api_key = raw_input("Please enter your API key:  ")
-        # api_secret = raw_input("Please enter your API secret:  ")
-        # api_key = "bb5df1eaa8b3fed046b9d3185b67f375"
-        # api_secret = "82f4f3eb073d7bb3"
-
-        # min_taken_date = get_min_date()
-        # max_taken_date = get_max_date(min_taken_date)
-
-        # min_taken_date='2013-04-01'
-        # max_taken_date='2013-05-01'
+    if min_date_is_valid and max_date_is_valid:
 
         print "Processing..."
         crawl = FlickrCrawl()
@@ -242,9 +228,6 @@ def main():
 
         crawl.run(min_taken_date, max_taken_date)
 
-        # ts = time.time()
-        # st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        # print st
 
 if __name__ == '__main__':
     main()

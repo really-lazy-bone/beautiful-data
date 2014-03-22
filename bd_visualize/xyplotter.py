@@ -4,7 +4,7 @@ import argparse
 from collections import defaultdict
 import pylab as pl
 
-def xyplotter(args, array):
+def xyplotter(args, array, figure):
     X = array[:,0]
     Y = np.delete(array, 0, axis=1)
     for i in Y:
@@ -68,4 +68,4 @@ def xyplotter(args, array):
 
     pl.xlim([xleft, xright])
     pl.ylim([ybottom, ytop])
-    ## pl.show()
+    pl.show()
