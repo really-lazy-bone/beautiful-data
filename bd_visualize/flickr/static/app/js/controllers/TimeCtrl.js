@@ -80,10 +80,18 @@ angular.module('lazyApp').controller('TimeCtrl',
               },
               xAxis: {
                 type: 'datetime',
+                title: {
+                  text: 'Day of Month'
+                },
                 dateTimeLabelFormats: { // don't display the dummy year
                     month: '%b %e.',
                     year: '%b'
                 }
+              },
+              yAxis: {
+                title: {
+                    text: 'Number of pictures'
+                },
               },
               tooltip: {
                   formatter: function() {
