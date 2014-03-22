@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <google-map center="map.center" zoom="map.zoom" options="options" refresh="true" draggable='true' style="height: 90%; display:block;">
+    <google-map center="map.center" zoom="map.zoom" options="options" refresh="true" draggable='true' style="height: 85%; display:block;">
          <markers models="locations" coords="'self'" doCluster="true" click="'onClicked'">
              <windows show="'showWindow'" closeClick="'closeClick'">
                 <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
